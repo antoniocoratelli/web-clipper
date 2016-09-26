@@ -7,7 +7,6 @@ import requests
 import subprocess
 import argparse
 import pypandoc
-from html2text import html2text
 from urllib import urlencode
 import Tkinter as tk
 from tkSimpleDialog import askstring as DialogAskString
