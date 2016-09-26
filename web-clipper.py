@@ -27,8 +27,7 @@ class PageFetcher:
         content = "# %s\n\n> %s\n\n%s" % (
             self.get_page_title(),
             self.page_url,
-            markdown
-        )
+            markdown)
         return content
 
     def get_page_title(self):
