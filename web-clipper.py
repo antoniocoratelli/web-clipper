@@ -1,5 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+'''
+Copyright (c) 2016, Antonio Coratelli.
+Released under BSD 3-Clause License. See 'LICENSE' file.
+'''
 
 import os
 import sys
@@ -94,8 +98,8 @@ class WebClipper:
 
 if __name__ == '__main__':
 
-    ap = argparse.ArgumentParser()
-    ap.add_argument("url", action="store", type=str, metavar='URL', help="url to be opened")
+    ap = argparse.ArgumentParser(epilog=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("url", action="store", type=str, metavar='URL', help="url to be downloaded")
     ap.add_argument("-m", action="store_true", dest="markdown", default=False, help="save in markdown format")
     ap.add_argument("-b", action="store_true", dest="ebook", default=False, help="save in ebook format")
     ap.add_argument("-e", action="store", dest="editor", default=None, help="open markdown file in editor (implies '-m', and it's done before converting the page in ebook format)")
