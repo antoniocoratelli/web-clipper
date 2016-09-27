@@ -65,7 +65,7 @@ class WebClipper:
     def save_ebook(self):
         filename_md = "%s.md" % self.get_filename()
         filename_epub = "%s.epub" % self.get_filename()
-        pypandoc.convert_text(self.get_content(), 'epub', format='md', outputfile=filename_epub)
+        pypandoc.convert_file(filename_md, 'epub', outputfile=filename_epub)
         return filename_epub
 
     def open_editor(self, editor):
@@ -100,12 +100,13 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(epilog=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("url", action="store", type=str, metavar='URL', help="url to be downloaded")
     ap.add_argument("-m", action="store_true", dest="markdown", default=False, help="save in markdown format")
-    ap.add_argument("-b", action="store_true", dest="ebook", default=False, help="save in ebook format")
+    ap.add_argument("-b", action="store_true", dest="ebook", default=False, help="save in ebook format (implies '-m')")
     ap.add_argument("-e", action="store", dest="editor", default=None, help="open markdown file in editor (implies '-m', and it's done before converting the page in ebook format)")
 
     args = ap.parse_args()
 
     if not args.editor is None: args.markdown = True
+    if args.ebook is True: args.markdown = True
 
     wc = WebClipper(args.url)
     if args.markdown: wc.save_markdown()

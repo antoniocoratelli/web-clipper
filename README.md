@@ -4,20 +4,22 @@ Download a web page in Markdown and/or Epub format.
 
 ## Usage
 
-    usage: web-clipper.py [-h] [-m] [-b] [-e EDITOR] URL
+```
+usage: web-clipper.py [-h] [-m] [-b] [-e EDITOR] URL
 
-    positional arguments:
-      URL         url to be downloaded
+positional arguments:
+  URL         url to be downloaded
 
-    optional arguments:
-      -h, --help  show this help message and exit
-      -m          save in markdown format
-      -b          save in ebook format
-      -e EDITOR   open markdown file in editor (implies '-m', and it's done before
-                  converting the page in ebook format)
+optional arguments:
+  -h, --help  show this help message and exit
+  -m          save in markdown format
+  -b          save in ebook format (implies '-m')
+  -e EDITOR   open markdown file in editor (implies '-m', and it's done before
+              converting the page in ebook format)
 
-    Copyright (c) 2016, Antonio Coratelli.
-    Released under BSD 3-Clause License. See 'LICENSE' file.
+Copyright (c) 2016, Antonio Coratelli.
+Released under BSD 3-Clause License. See 'LICENSE' file.
+```
 
 ## Requirements
 
