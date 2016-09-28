@@ -12,8 +12,7 @@ import subprocess
 import argparse
 import pypandoc
 from urllib import urlencode
-import Tkinter as tk
-from tkSimpleDialog import askstring as DialogAskString
+from pythonzenity import Entry as DialogAskString
 
 class PageFetcher:
 
@@ -71,7 +70,8 @@ class WebClipper:
     def open_editor(self, editor):
         filename_md = self.save_markdown()
         FNULL = open(os.devnull, 'w')
-        subprocess.call([editor, filename_md], stdout=FNULL, stderr=FNULL)
+        editor_cl = editor.split(' ')
+        subprocess.call(editor_cl + [filename_md], stdout=FNULL, stderr=FNULL)
 
     def get_filename(self):
         if self.filename is None:
@@ -82,10 +82,20 @@ class WebClipper:
         self.filename = filename
 
     def ask_filename(self):
-        root = tk.Tk()
-        root.withdraw()
-        default = self.get_title()
-        f = DialogAskString("web-clipper", "Write filename without extension.", initialvalue=default)
+        def center(toplevel):
+            toplevel.update_idletasks()
+            w = toplevel.winfo_screenwidth()
+            h = toplevel.winfo_screenheight()
+            size = tuple(int(_) for _ in toplevel.geometry().split('+')[0].split('x'))
+            x = w/2 - size[0]/2
+            y = h/2 - size[1]/2
+            toplevel.geometry("%dx%d+%d+%d" % (size + (x, y)))
+        f = DialogAskString(
+            title="web-clipper",
+            text="Write filename without extension.",
+            entry_text=self.get_title())
+        if f is None:
+            f = self.get_title()
         self.set_filename(f)
 
     def get_content(self):
@@ -102,13 +112,26 @@ if __name__ == '__main__':
     ap.add_argument("-m", action="store_true", dest="markdown", default=False, help="save in markdown format")
     ap.add_argument("-b", action="store_true", dest="ebook", default=False, help="save in ebook format (implies '-m')")
     ap.add_argument("-e", action="store", dest="editor", default=None, help="open markdown file in editor (implies '-m', and it's done before converting the page in ebook format)")
+    ap.add_argument("-A", action="store_true", dest="all", default=False, help="alias for '-e \"gedit -s\" -m -b'")
 
     args = ap.parse_args()
 
-    if not args.editor is None: args.markdown = True
-    if args.ebook is True: args.markdown = True
+    if not args.editor is None:
+        args.markdown = True
+    if args.ebook is True:
+        args.markdown = True
+    if args.all is True:
+        args.markdown = True
+        args.ebook = True
+        args.editor = "gedit -s"
 
     wc = WebClipper(args.url)
-    if args.markdown: wc.save_markdown()
-    if not args.editor is None: wc.open_editor(args.editor)
-    if args.ebook: wc.save_ebook()
+    if args.markdown:
+        print "Saving Markdown"
+        wc.save_markdown()
+    if not args.editor is None:
+        print "Opening Editor"
+        wc.open_editor(args.editor)
+    if args.ebook:
+        print "Saving Ebook"
+        wc.save_ebook()

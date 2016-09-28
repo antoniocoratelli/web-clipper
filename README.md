@@ -16,6 +16,7 @@ optional arguments:
   -b          save in ebook format (implies '-m')
   -e EDITOR   open markdown file in editor (implies '-m', and it's done before
               converting the page in ebook format)
+  -A          alias for '-e "gedit -s" -m -b'
 
 Copyright (c) 2016, Antonio Coratelli.
 Released under BSD 3-Clause License. See 'LICENSE' file.
@@ -24,7 +25,7 @@ Released under BSD 3-Clause License. See 'LICENSE' file.
 ## Requirements
 
 This indicator requires the following python modules: `os`, `sys`, `requests`,
-`subprocess`, `argparse`, `pypandoc`, `urllib`, `Tkinter`.
+`subprocess`, `argparse`, `pypandoc`, `urllib`, `python-zenity`.
 You can install the missing ones using `pip` ([link][pip]).
 
 ## Acknowledgements
