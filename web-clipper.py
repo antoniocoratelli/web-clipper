@@ -49,10 +49,9 @@ class PageFetcher:
 
 class WebClipper:
 
-    def __init__(self, url):
+    def __init__(self, pagefetcher):
         self.filename = None
-        self.url = url
-        self.pagefetcher = PageFetcher(self.url)
+        self.pagefetcher = pagefetcher
 
     def save_markdown(self):
         markdown = self.get_content()
@@ -82,12 +81,10 @@ class WebClipper:
         self.filename = filename
 
     def ask_filename(self):
-        f = DialogAskString(
-            title="web-clipper",
-            text="Write filename without extension.",
-            entry_text=self.get_title())
+        default_filename = self.get_title()
+        f = DialogAskString(title="web-clipper", text="Write filename without extension.", entry_text=default_filename)
         if f is None:
-            f = self.get_title()
+            f = default_filename
         self.set_filename(f)
 
     def get_content(self):
@@ -104,6 +101,7 @@ if __name__ == '__main__':
     ap.add_argument("-m", action="store_true", dest="markdown", default=False, help="save in markdown format")
     ap.add_argument("-b", action="store_true", dest="ebook", default=False, help="save in ebook format (implies '-m')")
     ap.add_argument("-e", action="store", dest="editor", default=None, help="open markdown file in editor (implies '-m', and it's done before converting the page in ebook format)")
+    ap.add_argument("-t", action="store_true", dest="title", default=False, help="use default file title")
     ap.add_argument("-A", action="store_true", dest="all", default=False, help="alias for '-e \"gedit -s\" -m -b'")
 
     args = ap.parse_args()
@@ -117,7 +115,15 @@ if __name__ == '__main__':
         args.ebook = True
         args.editor = "gedit -s"
 
-    wc = WebClipper(args.url)
+    pf = PageFetcher(args.url)
+    wc = WebClipper(pf)
+
+    if args.title:
+        title = wc.get_title()
+        wc.set_filename(title)
+    else:
+        wc.ask_filename()
+
     if args.markdown:
         print "Saving Markdown"
         wc.save_markdown()
