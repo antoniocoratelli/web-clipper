@@ -83,6 +83,7 @@ class WebClipper:
     def ask_filename(self):
         default_filename = self.get_title()
         f = DialogAskString(title="web-clipper", text="Write filename without extension.", entry_text=default_filename)
+        time.sleep(1)
         if f is None:
             f = default_filename
         self.set_filename(f)
@@ -121,9 +122,6 @@ if __name__ == '__main__':
     if args.title:
         title = wc.get_title()
         wc.set_filename(title)
-    else:
-        wc.ask_filename()
-
     if args.markdown:
         print "Saving Markdown"
         wc.save_markdown()
