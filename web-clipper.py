@@ -7,6 +7,7 @@ Released under BSD 3-Clause License. See 'LICENSE' file.
 
 import os
 import sys
+import time
 import requests
 import subprocess
 import argparse
