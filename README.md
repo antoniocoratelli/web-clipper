@@ -13,9 +13,9 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   -m          save in markdown format
-  -b          save in ebook format (implies '-m')
+  -b          save in epub format (implies '-m')
   -e EDITOR   open markdown file in editor (implies '-m', and it's done before
-              converting the page in ebook format)
+              converting the page in epub format)
   -A          alias for '-e "gedit -s" -m -b'
 
 Copyright (c) 2016, Antonio Coratelli.
