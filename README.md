@@ -1,36 +1,18 @@
 # web-clipper
 
-Download a web page in Markdown and/or Epub format.
+Easily download the main content of a web page in *html*, *markdown*, and/or *epub* format from command line.
+
+## Setup
+
+```
+git clone https://github.com/antoniocoratelli/web-clipper.git
+cd web-clipper
+pip3 install -r requirements.txt
+```
 
 ## Usage
 
-```
-usage: web-clipper.py [-h] [-m] [-b] [-e EDITOR] URL
-
-positional arguments:
-  URL         url to be downloaded
-
-optional arguments:
-  -h, --help  show this help message and exit
-  -m          save in markdown format
-  -b          save in epub format (implies '-m')
-  -e EDITOR   open markdown file in editor (implies '-m', and it's done before
-              converting the page in epub format)
-  -A          alias for '-e "gedit -s" -m -b'
-
-Copyright (c) 2016, Antonio Coratelli.
-Released under BSD 3-Clause License. See 'LICENSE' file.
-```
-
-## Requirements
-
-This indicator requires the following python modules: `os`, `sys`, `requests`,
-`subprocess`, `argparse`, `pypandoc`, `urllib`, `python-zenity`.
-You can install the missing ones using `pip` ([link][pip]).
-
-## Acknowledgements
-
-The script uses [FuckYeahMarkdown! API][fym] by Brett Terpstra.
+See script help: `web-clipper.py -h`
 
 ## Support
 
