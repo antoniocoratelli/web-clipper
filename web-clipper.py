@@ -12,7 +12,6 @@ from boilerpipe.extract import Extractor
 class PageFetcher:
 
     def __init__(self, page_url, extractor='DefaultExtractor'):
-        self.api_response = None
         self.page_url = page_url
         self.extractor = Extractor(extractor=extractor, url=self.page_url)
 
