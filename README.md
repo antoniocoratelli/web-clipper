@@ -5,12 +5,12 @@ Easily download the main content of a web page in *html*, *markdown*, and/or *ep
 ## Setup
 
 ```
-git clone https://github.com/antoniocoratelli/web-clipper.git && cd web-clipper && pip3 install -r requirements.txt
+git clone https://github.com/antoniocoratelli/web-clipper.git && cd web-clipper && ./init-venv.sh
 ```
 
 ## Usage
 
-See script help: `./web-clipper.py -h`
+See script help: `./web-clipper -h`
 
 ## Support
 
