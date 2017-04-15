@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$DIR/venv/bin/activate" && \
+python "$DIR/web-clipper.py" "$@" && \
+deactivate
+
