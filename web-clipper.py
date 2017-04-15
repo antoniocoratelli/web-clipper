@@ -7,16 +7,23 @@ Released under BSD 3-Clause License. See 'LICENSE' file.
 
 import argparse
 import pypandoc
-from boilerpipe.extract import Extractor
+from newspaper import Article
 
 class PageFetcher:
 
     def __init__(self, page_url, extractor='DefaultExtractor'):
         self.page_url = page_url
-        self.extractor = Extractor(extractor=extractor, url=self.page_url)
+        self.extractor = Article(self.page_url)
+        self.extractor.download()
+        self.extractor.parse()
 
     def get_page_content(self):
-        return self.extractor.getHTML()
+        base = '''<h1>%s</h1><p><a href="%s">%s</a></p><p><img src="%s"/><p>%s</p>'''
+        url = self.extractor.url
+        ttl = self.extractor.title
+        img = self.extractor.top_image
+        txt = self.extractor.text
+        return base % (ttl, url, url, img, txt.replace('\n\n', '</p><p>'))
 
 class WebClipper:
 
@@ -55,7 +62,6 @@ if __name__ == '__main__':
     ap.add_argument("-M", action="store_true", dest="markdown",  default=False, help="save in markdown format")
     ap.add_argument("-E", action="store_true", dest="epub",      default=False, help="save in epub format")
     ap.add_argument("-A", action="store_true", dest="all",       default=False, help="save all formats")
-    ap.add_argument("-X", action="store",      dest="extractor", default='DefaultExtractor', help="boilerpipe extractor, choose between: %s." % ', '.join(boilerpipe_extractors).strip())
     args = ap.parse_args()
 
     print('fetching page ...')

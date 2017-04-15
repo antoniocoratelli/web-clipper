@@ -1,2 +1,3 @@
 boilerpipe3>=1.1
 pypandoc>=1.3.3
+newspaper3k>=0.1.9
