@@ -11,7 +11,7 @@ from newspaper import Article
 
 class PageFetcher:
 
-    def __init__(self, page_url, extractor='DefaultExtractor'):
+    def __init__(self, page_url):
         self.page_url = page_url
         self.extractor = Article(self.page_url)
         self.extractor.download()
