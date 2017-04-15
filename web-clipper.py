@@ -45,16 +45,6 @@ class WebClipper:
 
 if __name__ == '__main__':
 
-    boilerpipe_extractors = [
-        'DefaultExtractor',
-        'ArticleExtractor',
-        'ArticleSentencesExtractor',
-        'KeepEverythingExtractor',
-        'KeepEverythingWithMinKWordsExtractor',
-        'LargestContentExtractor',
-        'NumWordsRulesExtractor',
-        'CanolaExtractor',
-    ]
     ap = argparse.ArgumentParser(epilog=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("url", action="store", type=str, metavar='URL',  help="url to be downloaded")
     ap.add_argument("out", action="store", type=str, metavar='PATH', help="path of the output files (no extension)")
