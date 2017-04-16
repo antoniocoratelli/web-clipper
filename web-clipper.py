@@ -8,22 +8,38 @@ Released under BSD 3-Clause License. See 'LICENSE' file.
 import argparse
 import pypandoc
 from newspaper import Article
+from lxml import etree
+from urllib.parse import urljoin
+
+class UrlResolver:
+
+    def __init__(self, url, node):
+        for tag_a in node.xpath("//a[@href]"):
+            rel = tag_a.attrib['href']
+            abs = urljoin(url, rel)
+            tag_a.attrib['href'] = abs.split('?', maxsplit=1)[0]
+        for tag_img in node.xpath("//img[@src]"):
+            rel = tag_img.attrib['src']
+            abs = urljoin(url, rel)
+            tag_img.attrib['src'] = abs.split('?', maxsplit=1)[0]
+        self.resolved = etree.tostring(node).decode('utf-8')
 
 class PageFetcher:
 
     def __init__(self, page_url):
         self.page_url = page_url
-        self.extractor = Article(self.page_url)
+        self.extractor = Article(self.page_url, keep_article_html=True)
         self.extractor.download()
         self.extractor.parse()
 
     def get_page_content(self):
-        base = '''<h1>%s</h1><p><a href="%s">%s</a></p><p><img src="%s"/><p>%s</p>'''
         url = self.extractor.url
         ttl = self.extractor.title
-        img = self.extractor.top_image
         txt = self.extractor.text
-        return base % (ttl, url, url, img, txt.replace('\n\n', '</p><p>'))
+        img = '''<p><img src="%s"/></p>''' % self.extractor.top_image
+        body = UrlResolver(url, self.extractor.clean_top_node).resolved
+        html = '''<!DOCTYPE html><html><head><meta charset="UTF-8"><title>%s</title></head><body>%s%s</body></html>''' % (ttl, img, body)
+        return html
 
 class WebClipper:
 
