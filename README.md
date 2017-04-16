@@ -23,8 +23,8 @@ See script help: `./web-clipper -h`
 
 ## Support
 
-If you like this application, you can [share it][support_share], [buy me a coffe][support_paypal], or say thanks adding a [star][support_star].
+If you like this application, you can [share it][support_share], buy me [a coffe][support_paypal], or say thanks adding a [star][support_star].
 
 [support_share]:  https://www.addtoany.com/share/#url=github.com/antoniocoratelli/web-clipper
 [support_star]:   https://github.com/antoniocoratelli/web-clipper/stargazers
-[support_paypal]: https://paypal.me/antoniocoratelli
+[support_paypal]: https://paypal.me/antoniocoratelli/3
