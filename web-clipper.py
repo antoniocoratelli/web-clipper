@@ -8,21 +8,27 @@ Released under BSD 3-Clause License. See 'LICENSE' file.
 import argparse
 import pypandoc
 from newspaper import Article
-from lxml import etree
+from lxml import etree, html
 from urllib.parse import urljoin
+from bs4 import BeautifulSoup
 
 class UrlResolver:
 
-    def __init__(self, url, node):
-        for tag_a in node.xpath("//a[@href]"):
-            rel = tag_a.attrib['href']
+    def __init__(self, url, html_text):
+        soup = BeautifulSoup(html_text, "lxml")
+        for tag_a in soup.findAll("a"):
+          try:
+            rel = tag_a['href']
             abs = urljoin(url, rel)
-            tag_a.attrib['href'] = abs.split('?', maxsplit=1)[0]
-        for tag_img in node.xpath("//img[@src]"):
-            rel = tag_img.attrib['src']
+            tag_a['href'] = abs.split('?', maxsplit=1)[0]
+          except: pass
+        for tag_img in soup.findAll("img"):
+          try:
+            rel = tag_img['src']
             abs = urljoin(url, rel)
-            tag_img.attrib['src'] = abs.split('?', maxsplit=1)[0]
-        self.resolved = etree.tostring(node).decode('utf-8')
+            tag_img['src'] = abs.split('?', maxsplit=1)[0]
+          except: pass
+        self.resolved = soup.prettify()
 
 class PageFetcher:
 
@@ -35,11 +41,11 @@ class PageFetcher:
     def get_page_content(self):
         url = self.extractor.url
         ttl = self.extractor.title
-        txt = self.extractor.text
-        img = '''<p><img src="%s"/></p>''' % self.extractor.top_image
-        body = UrlResolver(url, self.extractor.clean_top_node).resolved
-        html = '''<!DOCTYPE html><html><head><meta charset="UTF-8"><title>%s</title></head><body>%s%s</body></html>''' % (ttl, img, body)
-        return html
+        txt = self.extractor.article_html
+        img = self.extractor.top_image
+        body = '''<p><img src="%s"/></p><p><a href="%s">%s</a></p>%s''' % (img, url, url, txt)
+        html = '''<!DOCTYPE html><html><head><meta charset="UTF-8"><title>%s</title></head><body>%s</body></html>''' % (ttl, body)
+        return UrlResolver(url, html).resolved
 
 class WebClipper:
 
