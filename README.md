@@ -10,7 +10,7 @@ with `python3` and `virtualenv` support.
 ```
 sudo apt-get -y install \
     python3 python3-pip python-virtualenv \
-    openjdk-7-jdk \
+    openjdk-7-jdk python3-imaging \
     git-core \
 && pip3 install --user --upgrade pip virtualenv
 ```
