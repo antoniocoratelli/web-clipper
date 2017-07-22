@@ -8,7 +8,11 @@ This project was developed on *Ubuntu 14.04*, but *should* run smoothly on any L
 with `python3` and `virtualenv` support.
 
 ```
-sudo apt-get -y install python3 python3-pip python-virtualenv git && pip3 install --user --upgrade pip virtualenv
+sudo apt-get -y install \
+    python3 python3-pip python-virtualenv \
+    openjdk-7-jdk \
+    git-core \
+&& pip3 install --user --upgrade pip virtualenv
 ```
 
 ## Setup
