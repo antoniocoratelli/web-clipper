@@ -9,8 +9,9 @@ with `python3` and `virtualenv` support.
 
 ```
 sudo apt-get -y install \
-    python3 python3-pip python-virtualenv \
-    openjdk-7-jdk python3-imaging \
+    python3 python3-pip python-virtualenv python-tk \
+    openjdk-7-jdk libtiff5-dev libjpeg8-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev \
     git-core \
 && pip3 install --user --upgrade pip virtualenv
 ```
