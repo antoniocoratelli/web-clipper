@@ -1,0 +1,9 @@
+stages:
+- mirror
+
+mirror:
+  image: registry.gitlab.com/antoniocoratelli/docker-builder-as-a-service/ci-mirror
+  stage: mirror
+  script: ci-mirror git@github.com:antoniocoratelli/web-clipper.git
+  only:
+  - master
