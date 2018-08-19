@@ -1,12 +1,7 @@
 # web-clipper
 
-Easily download the main content of a web page in *html*, *markdown*, and/or *epub* format from command line.
-
-> This project is hosted on [GitLab][gl-link] and mirrored on [GitHub][gh-link].
-> Please open *Issues* and *Merge Requests* on GitLab.
-
-[gl-link]: https://gitlab.com/antoniocoratelli/web-clipper
-[gh-link]: https://github.com/antoniocoratelli/web-clipper
+> Easily download the main content of a web page in *html*, 
+> *markdown*, and/or *epub* format from command line.
 
 ## Dependencies
 
